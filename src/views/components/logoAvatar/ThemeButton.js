@@ -20,7 +20,7 @@ const ThemeButton = ({need}) => {
   // ** color array for theme change
   const color =  skin === "light" ? "primary" : 'dark'  
   // ** language change
-  const [open, setOpen] = React.useState(false) // language change dropdown
+  const [open, setOpen] = React.useState(true) // language change dropdown
   const [language, setLanguage] = React.useState('en') // active language change
 
   return (need && <> 

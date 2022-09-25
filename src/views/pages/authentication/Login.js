@@ -1,5 +1,5 @@
 // ** React Imports
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 // ** Custom Hooks
@@ -57,6 +57,8 @@ const defaultValues = {
 const Login = () => {
 // ** Hooks
 const { t } = useTranslation() // useTranslation for language change
+const [err, setErr] = useState(null) // error state for login
+const [loading, setLoading] = useState(false) // error state for button
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const ability = useContext(AbilityContext)
@@ -66,21 +68,23 @@ const { t } = useTranslation() // useTranslation for language change
     handleSubmit,
     formState: { errors }
   } = useForm({ defaultValues })
-
-  const onSubmit = data => {
+    const onSubmit = data => {
+      setLoading(true)
     if (Object.values(data).every(field => field.length > 0)) {
       useJwt
         .login({ email: data.loginEmail, password: data.password })
         .then(res => {
           const data = { ...res.data.userData, accessToken: res.data.accessToken, refreshToken: res.data.refreshToken }
           dispatch(handleLogin(data))
+          setErr(null)
+          setLoading(false)
           ability.update(res.data.userData.ability)
           navigate(getHomeRouteForLoggedInUser(data.role))
           toast(t => (
             <ToastContent t={t} role={data.role || 'admin'} name={data.fullName || data.username || 'John Doe'} />
           ))
         })
-        .catch(err => console.log(err))
+        .catch((error) => { setLoading(false); setErr(error.message) })
     } else {
       for (const key in data) {
         if (data[key].length === 0) {
@@ -91,7 +95,6 @@ const { t } = useTranslation() // useTranslation for language change
       }
     }
   }
-
   return (
     <div className='auth-wrapper auth-cover'>
       <Row className='auth-inner m-0'>
@@ -102,8 +105,9 @@ const { t } = useTranslation() // useTranslation for language change
             👋 {t("Welcome Back")} 👋
             </CardTitle>
             <CardText className='mb-2'>{t("Welcome sign in")}</CardText>
-            <Alert color='primary'>
-             </Alert>
+            {errors && errors.loginEmail && <Alert color='danger'> please check your email  </Alert> }
+            {errors && errors.password && <Alert color='danger'> please check your password  </Alert> }
+            {err && <Alert color='danger'> {err}  </Alert> }
             <Form className='auth-login-form mt-2' onSubmit={handleSubmit(onSubmit)}>
               <div className='mb-1'>
                 <Label className='form-label' for='login-email'>
@@ -119,6 +123,7 @@ const { t } = useTranslation() // useTranslation for language change
                       type='email'
                       placeholder='john@example.com'
                       invalid={errors.loginEmail && true}
+                      valid={field.value.includes("@") && field.value.includes('.com') && errors.loginEmail === undefined && true}
                       {...field}
                     />
                   )}
@@ -138,7 +143,10 @@ const { t } = useTranslation() // useTranslation for language change
                   name='password'
                   control={control}
                   render={({ field }) => (
-                    <InputPasswordToggle className='input-group-merge' invalid={errors.password && true} {...field} />
+                    <InputPasswordToggle className='input-group-merge'
+                     invalid={errors.password && true}
+                     valid={field.value.length >  5 && errors.password === undefined && true}
+                      {...field} />
                   )}
                 />
               </div>
@@ -148,7 +156,7 @@ const { t } = useTranslation() // useTranslation for language change
                   {t("Remember Me")}
                 </Label>
               </div>
-              <Button type='submit' color='primary' block>
+              <Button type='submit' color='primary' disabled={loading} block>
                 {t("Sign In")}
               </Button>
             </Form>
