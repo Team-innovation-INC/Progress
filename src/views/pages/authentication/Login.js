@@ -98,7 +98,7 @@ const [loading, setLoading] = useState(false) // error state for button
   return (
     <div className='auth-wrapper auth-cover'>
       <Row className='auth-inner m-0'>
-       <LogoComponent  dark='login-v2-dark.svg' light='login-v2.svg'/>
+       <LogoComponent className='d-none d-lg-flex align-items-center p-5' lg='8' sm='12' dark='login-v2-dark.svg' light='login-v2.svg'/>
         <Col className='d-flex align-items-center auth-bg px-2 p-lg-5' lg='4' sm='12'>
           <Col className='px-xl-2 mx-auto' sm='8' md='6' lg='12'>
             <CardTitle tag='h2' className='fw-bold mb-1'>

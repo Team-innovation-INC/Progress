@@ -19,6 +19,7 @@ import dinersCC from '@src/assets/images/icons/payments/diners-cc.png'
 import maestroCC from '@src/assets/images/icons/payments/maestro-cc.png'
 import discoverCC from '@src/assets/images/icons/payments/discover-cc.png'
 import mastercardCC from '@src/assets/images/icons/payments/mastercard-cc.png'
+import { ThemeButton } from '../../../../components/logoAvatar'
 
 const cardsObj = {
   jcb: jcbCC,
@@ -164,6 +165,7 @@ const Billing = ({ stepper }) => {
             <ChevronLeft size={14} className='align-middle me-sm-25 me-0'></ChevronLeft>
             <span className='align-middle d-sm-inline-block d-none'>Previous</span>
           </Button>
+          <ThemeButton need={true} disable={true}/>
           <Button type='submit' color='success' className='btn-next'>
             <span className='align-middle d-sm-inline-block d-none'>Submit</span>
             <Check size={14} className='align-middle ms-sm-25 ms-0'></Check>

@@ -37,7 +37,9 @@ const AuthenticationRoutes = [
     path: '/pages/login-basic',
     element: <LoginBasic />,
     meta: {
-      layout: 'blank'
+      layout: 'blank',
+      publicRoute: true,
+      restricted: true
     }
   },
   {
@@ -48,12 +50,10 @@ const AuthenticationRoutes = [
     }
   },
   {
-    path: '/register',
+    path: '/pages/register-multi-steps',
     element: <Register />,
     meta: {
-      layout: 'blank',
-      publicRoute: true,
-      restricted: true
+      layout: 'blank'
     }
   },
   {
@@ -71,10 +71,12 @@ const AuthenticationRoutes = [
     }
   },
   {
-    path: '/pages/register-multi-steps',
+    path: '/register',
     element: <RegisterMultiSteps />,
     meta: {
-      layout: 'blank'
+      layout: 'blank',
+      publicRoute: true,
+      restricted: true
     }
   },
 

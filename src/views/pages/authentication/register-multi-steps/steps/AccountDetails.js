@@ -12,6 +12,8 @@ import { Form, Label, Input, Row, Col, Button, FormFeedback } from 'reactstrap'
 
 // ** Custom Components
 import InputPasswordToggle from '@components/input-password-toggle'
+import { ThemeButton } from '../../../../components/logoAvatar'
+import { useNavigate } from 'react-router-dom'
 
 const defaultValues = {
   email: '',
@@ -21,6 +23,8 @@ const defaultValues = {
 }
 
 const AccountDetails = ({ stepper }) => {
+  // ** navigate 
+  const navigate = useNavigate()
   const SignupSchema = yup.object().shape({
     username: yup.string().required(),
     email: yup.string().email().required(),
@@ -136,10 +140,11 @@ const AccountDetails = ({ stepper }) => {
           </Col>
         </Row>
         <div className='d-flex justify-content-between mt-2'>
-          <Button color='secondary' className='btn-prev' outline disabled>
+          <Button color='success' className='btn-prev' outline onClick={() => navigate('/login')}>
             <ChevronLeft size={14} className='align-middle me-sm-25 me-0'></ChevronLeft>
-            <span className='align-middle d-sm-inline-block d-none'>Previous</span>
+            <span className='align-middle d-sm-inline-block d-none'>Back</span>
           </Button>
+          <ThemeButton need={true} disable={true}/>
           <Button type='submit' color='primary' className='btn-next'>
             <span className='align-middle d-sm-inline-block d-none'>Next</span>
             <ChevronRight size={14} className='align-middle ms-sm-25 ms-0'></ChevronRight>

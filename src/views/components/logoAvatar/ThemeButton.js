@@ -12,7 +12,7 @@
  import {TbCurrencyFrank} from 'react-icons/tb' // french icon
  import ReactCountryFlag from 'react-country-flag'
 
-const ThemeButton = ({need}) => {
+const ThemeButton = ({need, disable}) => {
     // ** Hooks
   const { skin, setSkin } = useSkin() // useSkin for theme change
   const [isRtl, setIsRtl] = useRTL() // useRTL for rtl change
@@ -23,7 +23,7 @@ const ThemeButton = ({need}) => {
   const [open, setOpen] = React.useState(true) // language change dropdown
   const [language, setLanguage] = React.useState('en') // active language change
 
-  return (need && <> 
+  return (need && <>
   <div className='auth-footer-btn d-flex justify-content-center'> 
   <Button color={ color } onClick={() => { skin === 'dark' ? setSkin('light') : setSkin('dark') }}>
     {skin === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
@@ -31,7 +31,7 @@ const ThemeButton = ({need}) => {
   <Button color={ color }  onClick={() => { setIsRtl(!isRtl) }}>
     <Monitor size={14} />
   </Button>
-  <Button className='me-0' color={ color } onClick={() => setOpen(!open)}>
+  <Button className='me-0' color={ color } onClick={() => { disable ? setOpen(true) : setOpen(!open) }}>
     <BsTranslate size={14} color="white" />
   </Button>
 </div> 
