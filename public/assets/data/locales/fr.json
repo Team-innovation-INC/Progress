@@ -183,5 +183,16 @@
   "Accordion": "Accordéon",
   "Permissions": "Autorisations",
   "Modal Examples": "Exemples modaux",
-  "Roles & Permissions": "Rôles et autorisations"
+  "Roles & Permissions": "Rôles et autorisations",
+  "choose your language": "choisissez votre langue",
+  "Welcome Back": "Bienvenue à nouveau",
+  "Welcome sign in" : "Bienvenue, connectez-vous à votre compte",
+  "Password" : "Mot de passe",
+  "Sign In" : "Se connecter",
+  "Forget password": "Mot de passe oublié",
+  "Remember Me": "save information",
+  "New on our platform?": "Nouveau sur notre plateforme?",
+  "Create an account": "Créer un compte",
+  "style the app": "stylez l'application",
+  "Progres Work": "suivie des travaux"
 }
