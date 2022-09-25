@@ -20,7 +20,7 @@ i18n
       /* translation file path */
       loadPath: `${process.env.PUBLIC_URL}/assets/data/locales/{{lng}}.json`
     },
-    fallbackLng: 'en',
+    fallbackLng: ['en', 'fr'],
     debug: false,
     keySeparator: false,
     react: {
@@ -31,5 +31,4 @@ i18n
       formatSeparator: ','
     }
   })
-
 export default i18n
