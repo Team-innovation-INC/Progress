@@ -193,5 +193,21 @@
   "New on our platform?": "New on our platform?",
   "Create an account": "Create an account",
   "style the app": "style the app",
-  "Progres Work": "Progres Work"
+  "Progres Work": "Progres Work",
+  "Account Information": "Account Information",
+  "Enter your username password details": "Enter your username password details",
+  "Full Name": "Full Name",
+  "Email Address": "Email Address",
+  "Confirm Password": "Confirm Password",
+  "Accept": "Accepct",
+  "conditions": "onditions",
+  "terms": "terms",
+  "and": "and",
+  "Back": "Back",
+  "full name error": "full name must be 6 characters long",
+  "email error": "please tap a valid email",
+  "email required": "email is required",
+  "password error": "password must be 6 characters long",
+  "confirm password error": "confirm password is require",
+  "password not match": "password not match"
 }

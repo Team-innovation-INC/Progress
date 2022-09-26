@@ -194,5 +194,21 @@
   "New on our platform?": "Nouveau sur notre plateforme?",
   "Create an account": "Créer un compte",
   "style the app": "stylez l'application",
-  "Progres Work": "suivie des travaux"
+  "Progres Work": "suivie des travaux",
+  "Account Information": "Informations du compte",
+  "Enter your username password details": "Entrez vos détails de nom d'utilisateur et de mot de passe",
+  "Full Name": "Votre nom",
+  "Email Address": " Adress email ",
+  "Confirm Password": "Confirmez le mot de passe",
+  "Accept": "Accepter", 
+  "conditions": "conditions",
+  "terms": "termes",
+  "and": "et",
+  "Back": "Retour",
+  "full name error": "nom doit être supérieur à 6 caractères",
+  "email error": "email n'est pas valide",
+  "email required": " email est obligatoire",
+  "password error": "mot de passe doit être supérieur à 6 caractères",
+  "confirm password error": "mot de passe est vide",
+  "password not match": "les mots de passe ne correspondent pas"
 }

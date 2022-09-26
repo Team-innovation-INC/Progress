@@ -1,5 +1,6 @@
 // ** React Imports
 import { Fragment } from 'react'
+import { useTranslation } from 'react-i18next' // useTranslation for language change
 
 // ** Third Party Components
 import * as yup from 'yup'
@@ -13,56 +14,62 @@ import { Form, Label, Input, Row, Col, Button, FormFeedback } from 'reactstrap'
 // ** Custom Components
 import InputPasswordToggle from '@components/input-password-toggle'
 import { ThemeButton } from '../../../../components/logoAvatar'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const defaultValues = {
   email: '',
   username: '',
   password: '',
-  confirmPassword: ''
+  confirmPassword: '',
+  check: false
 }
 
 const AccountDetails = ({ stepper }) => {
+  const { t } = useTranslation() // useTranslation for language change
   // ** navigate 
   const navigate = useNavigate()
+   // validation schema for data
   const SignupSchema = yup.object().shape({
-    username: yup.string().required(),
-    email: yup.string().email().required(),
-    password: yup.string().required(),
+    username: yup.string().min(6, t("full name error")),
+    email: yup.string().email(t("email error")).required(t("email required")),
+    password: yup.string().required(t("confirm password error")).min(6, t("password error")),
     confirmPassword: yup
       .string()
-      .required()
-      .oneOf([yup.ref(`password`), null], 'Passwords must match')
+      .required(t("confirm password error"))
+      .oneOf([yup.ref(`password`), null], t("password not match")),
+    check: yup.boolean().oneOf([true], 'Please check the box')
   })
-
   // ** Hooks
-
   const {
-    control,
-    handleSubmit,
-    formState: { errors }
+    control, // control props comes from useForm (optional: if you are using FormContext)
+    handleSubmit, // submit form
+    formState: { errors } // errors object contains all your form errors
   } = useForm({
-    defaultValues,
-    resolver: yupResolver(SignupSchema)
+    defaultValues, // default values for form fields
+    resolver: yupResolver(SignupSchema) // validation resolver
   })
 
   const onSubmit = data => {
-    if (Object.values(data).every(field => field.length > 0)) {
-      stepper.next()
+    if (Object.values(data).every(field => field === true || field.length > 0)) { // check if all fields are filled
+      stepper.next() // go to next step
+      // we can her send data to backend
+      // in this case APi is try to send data to backend 
+    } else {
+      // we can add here alert or toast to show error
     }
   }
 
   return (
     <Fragment>
       <div className='content-header mb-2'>
-        <h2 className='fw-bolder mb-75'>Account Information</h2>
-        <span>Enter your username password details</span>
+        <h2 className='fw-bolder mb-75'>{t("Account Information")}</h2>
+        <span>{t("Enter your username password details")}</span>
       </div>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Row>
           <Col md='6' className='mb-1'>
             <Label className='form-label' for='username'>
-              Username
+              {t("Full Name")}
             </Label>
             <Controller
               id='username'
@@ -74,7 +81,7 @@ const AccountDetails = ({ stepper }) => {
           </Col>
           <Col md='6' className='mb-1'>
             <Label className='form-label' for={`email`}>
-              Email
+              {t('Email Address')}
             </Label>
             <Controller
               control={control}
@@ -95,7 +102,7 @@ const AccountDetails = ({ stepper }) => {
               control={control}
               render={({ field }) => (
                 <InputPasswordToggle
-                  label='Password'
+                  label={t('Password')}
                   htmlFor='password'
                   className='input-group-merge'
                   invalid={errors.password && true}
@@ -112,7 +119,7 @@ const AccountDetails = ({ stepper }) => {
               name='confirmPassword'
               render={({ field }) => (
                 <InputPasswordToggle
-                  label='Confirm Password'
+                  label={t("Confirm Password")}
                   htmlFor='password'
                   className='input-group-merge'
                   invalid={errors.confirmPassword && true}
@@ -125,16 +132,18 @@ const AccountDetails = ({ stepper }) => {
         </Row>
         <Row>
           <Col sm={12} className='mb-1'>
-            <Label className='form-label' for='profile-link'>
-              Profile Link
-            </Label>
-            <Input id='profile-link' placeholder='johndoe/profile' />
-          </Col>
-          <Col sm={12} className='mb-1'>
             <div className='form-check form-check-inline'>
-              <Input type='checkbox' id='remember-me' />
-              <Label for='remember-me' className='form-check-label'>
-                Remember Me
+            <Controller
+              control={control}
+              id='check'
+              name='check'
+              render={({ field }) => (
+                <Input type='checkbox' invalid={errors.check && true} {...field} />
+              )}
+            />
+              <Label for='remember-me' >
+                {t('Accept')} <Link to="/terms" ><a>{t('terms')}</a></Link>   {t('and')} <Link to="/conditions" ><a>{t('conditions')} </a> </Link> 
+            <a style={{color: "red"}} >{errors.check && errors.check.message}</a> 
               </Label>
             </div>
           </Col>
@@ -142,11 +151,11 @@ const AccountDetails = ({ stepper }) => {
         <div className='d-flex justify-content-between mt-2'>
           <Button color='success' className='btn-prev' outline onClick={() => navigate('/login')}>
             <ChevronLeft size={14} className='align-middle me-sm-25 me-0'></ChevronLeft>
-            <span className='align-middle d-sm-inline-block d-none'>Back</span>
+            <span className='align-middle d-sm-inline-block d-none'>{t('Back')}</span>
           </Button>
-          <ThemeButton need={true} disable={true}/>
+          <ThemeButton need={true} disable={false}/>
           <Button type='submit' color='primary' className='btn-next'>
-            <span className='align-middle d-sm-inline-block d-none'>Next</span>
+            <span className='align-middle d-sm-inline-block d-none'>{t('Next')}</span>
             <ChevronRight size={14} className='align-middle ms-sm-25 ms-0'></ChevronRight>
           </Button>
         </div>
