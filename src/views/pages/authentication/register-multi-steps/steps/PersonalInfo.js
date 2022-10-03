@@ -1,35 +1,42 @@
 // ** React Imports
-import { Fragment } from 'react'
+import { Fragment } from 'react' 
 
 // ** Third Party Components
-import { useForm, Controller } from 'react-hook-form'
-import { ChevronLeft, ChevronRight } from 'react-feather'
+import { useForm, Controller } from 'react-hook-form'// ** Custom Components
+import { ChevronLeft, ChevronRight } from 'react-feather' // react icons
 
 // ** Reactstrap Imports
-import { Form, Label, Input, Row, Col, Button, FormFeedback } from 'reactstrap'
-import { ThemeButton } from '../../../../components/logoAvatar'
-
+import { Form, Label, Input, Row, Col, Button, FormFeedback } from 'reactstrap' // component imorts
+import { ThemeButton } from '../../../../components/logoAvatar' // styling component import
+// ** Default Values
 const defaultValues = {
+  lastName: '',
   address: '',
-  firstName: ''
+  firstName: '',
+  mobileNumber: '',
+  pincode: '',
+  'area-sector': '',
+  'town-city': '',
+  country: ''
 }
-
+// component for personal info
 const PersonalInfo = ({ stepper }) => {
   // ** Hooks
   const {
-    control,
-    setError,
-    handleSubmit,
-    formState: { errors }
-  } = useForm({
-    defaultValues
+    control, // control props comes from useForm (optional: if you are using FormContext)
+    setError, // set error for specific field
+    handleSubmit, // submit form function
+    formState: { errors } // errors object contains all your form errors
+  } = useForm({ 
+    defaultValues // default values for form fields
   })
 
+    // ** Function to handle form submit
   const onSubmit = data => {
-    if (Object.values(data).every(field => field.length > 0)) {
+    if (Object.values(data).every(field => field.length > 0)) { // check if all fields are filled
       stepper.next()
-    } else {
-      for (const key in data) {
+    } else { // if not all fields are filled show error
+      for (const key in data) { // get all keys from data such as firstName, lastName, etc  
         if (data[key].length === 0) {
           setError(key, {
             type: 'manual',
