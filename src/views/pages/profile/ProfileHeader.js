@@ -6,24 +6,27 @@ import { AlignJustify, Rss, Info, Image, Users, Edit } from 'react-feather'
 
 // ** Reactstrap Imports
 import { Card, CardImg, Collapse, Navbar, Nav, NavItem, NavLink, Button } from 'reactstrap'
+// ** images imports 
+import defaultAvatar from '@src/assets/images/profile/user-uploads/timeline.jpg'
+import { useNavigate } from 'react-router-dom'
 
 const ProfileHeader = ({ data }) => {
   // ** States
   const [isOpen, setIsOpen] = useState(false)
-
+  const navigate = useNavigate()
   const toggle = () => setIsOpen(!isOpen)
 
   return (
     <Card className='profile-header mb-2'>
-      <CardImg src={data.coverImg} alt='User Profile Image' top />
+      <CardImg src={data.bgProfile || defaultAvatar} alt='User Profile Image' top />
       <div className='position-relative'>
         <div className='profile-img-container d-flex align-items-center'>
           <div className='profile-img'>
-            <img className='rounded img-fluid' src={data.avatar} alt='Card image' />
+            <img className='rounded img-fluid' src={data.pic} alt='Card image' />
           </div>
           <div className='profile-title ms-3'>
-            <h2 className='text-white'>{data.username}</h2>
-            <p className='text-white'>{data.designation}</p>
+            <h2 className='text-white'> {data.userName} </h2>
+            <p className='text-white'> {data.fullName} </p>
           </div>
         </div>
       </div>
@@ -60,7 +63,7 @@ const ProfileHeader = ({ data }) => {
                   </NavLink>
                 </NavItem>
               </Nav>
-              <Button color='primary'>
+              <Button color='primary' onClick={() => navigate("/pages/account-settings") }>
                 <Edit className='d-block d-md-none' size={14} />
                 <span className='fw-bold d-none d-md-block'>Edit</span>
               </Button>

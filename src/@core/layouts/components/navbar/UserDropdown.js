@@ -1,6 +1,7 @@
 // ** React Imports
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import IntlDropdown from './IntlDropdown'
 
 // ** Custom Components
 import Avatar from '@components/avatar'
@@ -9,7 +10,7 @@ import Avatar from '@components/avatar'
 import { isUserLoggedIn } from '@utils'
 
 // ** Store & Actions
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { handleLogout } from '@store/authentication'
 
 // ** Third Party Components
@@ -24,26 +25,26 @@ import defaultAvatar from '@src/assets/images/portrait/small/avatar-s-11.jpg'
 const UserDropdown = () => {
   // ** Store Vars
   const dispatch = useDispatch()
-
+  const user = useSelector(state => state.auth.userData)
   // ** State
   const [userData, setUserData] = useState(null)
 
   //** ComponentDidMount
   useEffect(() => {
     if (isUserLoggedIn() !== null) {
-      setUserData(JSON.parse(localStorage.getItem('userData')))
+      setUserData(user)
     }
   }, [])
 
   //** Vars
-  const userAvatar = (userData && userData.avatar) || defaultAvatar
+  const userAvatar = (userData && userData.pic) || defaultAvatar
 
   return (
     <UncontrolledDropdown tag='li' className='dropdown-user nav-item'>
       <DropdownToggle href='/' tag='a' className='nav-link dropdown-user-link' onClick={e => e.preventDefault()}>
         <div className='user-nav d-sm-flex d-none'>
-          <span className='user-name fw-bold'>{(userData && userData['username']) || 'John Doe'}</span>
-          <span className='user-status'>{(userData && userData.role) || 'Admin'}</span>
+          <span className='user-name fw-bold'>{(userData && userData['fullName'])}</span>
+          <span className='user-status'>{(userData && userData.role)}</span>
         </div>
         <Avatar img={userAvatar} imgHeight='40' imgWidth='40' status='online' />
       </DropdownToggle>
@@ -81,6 +82,7 @@ const UserDropdown = () => {
           <Power size={14} className='me-75' />
           <span className='align-middle'>Logout</span>
         </DropdownItem>
+        <IntlDropdown />
       </DropdownMenu>
     </UncontrolledDropdown>
   )
