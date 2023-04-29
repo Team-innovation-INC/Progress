@@ -12,9 +12,9 @@ import { Row, Col } from 'reactstrap'
 import { Home, User, CreditCard } from 'react-feather'
 
 // ** Steps
-import Billing from './steps/Billing'
-import PersonalInfo from './steps/PersonalInfo'
-import AccountDetails from './steps/AccountDetails'
+import Billing from './steps/AccessMethod'
+import PersonalInfo from './steps/CreateCompany'
+import AccountDetails from './steps/JoinCompany'
 
 // ** Styles
 import '@styles/react/pages/page-authentication.scss'
@@ -28,25 +28,25 @@ const RegisterMultiSteps = () => {
 
   const steps = [
     {
-      id: 'account-details',
-      title: 'Account',
-      subtitle: 'Enter username',
+      id: 'select-methods',
+      title: 'create/select',
+      subtitle: 'create or join an company',
       icon: <Home size={18} />,
-      content: <AccountDetails stepper={stepper} />
+      content: <Billing stepper={stepper} />
     },
     {
-      id: 'personal-info',
-      title: 'Personal',
-      subtitle: 'Enter Information',
+      id: 'create-company',
+      title: 'new company',
+      subtitle: 'company formula',
       icon: <User size={18} />,
       content: <PersonalInfo stepper={stepper} />
     },
     {
-      title: 'Billing',
-      id: 'step-billing',
-      subtitle: 'Payment Details',
+      id: 'Join-company',
+      title: 'existing company',
+      subtitle: 'select company list',
       icon: <CreditCard size={18} />,
-      content: <Billing stepper={stepper} />
+      content: <AccountDetails stepper={stepper} /> 
     }
   ]
 
@@ -104,7 +104,7 @@ const RegisterMultiSteps = () => {
               </g>
             </g>
           </svg>
-          <h2 className='brand-text text-primary ms-1'>Vuexy</h2>
+          <h2 className='brand-text text-primary ms-1'>Progress App</h2>
         </Link>
         <Col lg='3' className='d-none d-lg-flex align-items-center p-0'>
           <div className='w-100 d-lg-flex align-items-center justify-content-center'>

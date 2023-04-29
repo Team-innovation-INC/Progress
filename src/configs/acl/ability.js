@@ -1,5 +1,5 @@
 import { Ability } from '@casl/ability'
-import { initialAbility } from './initialAbility'
+import { adminAbility, developerAbility, moderatorAbility, initialAbility } from './initialAbility'
 
 //  Read ability from localStorage
 // * Handles auto fetching previous abilities if already logged in user
@@ -8,4 +8,17 @@ import { initialAbility } from './initialAbility'
 const userData = JSON.parse(localStorage.getItem('userData'))
 const existingAbility = userData ? userData.ability : null
 
-export default new Ability(existingAbility || initialAbility)
+export  const currentAbility = (_role) => {
+  switch (_role || userData?.role || 'user') {
+    case "admin":
+      return adminAbility 
+    case "administrator":
+      return moderatorAbility
+    case "user":
+      return developerAbility
+    default:
+      return  existingAbility || initialAbility 
+    }
+}
+
+export default new Ability(currentAbility())

@@ -23,8 +23,10 @@ import ProfileFriendsSuggestions from './ProfileFriendsSuggestions'
 
 // ** Styles
 import '@styles/react/pages/page-profile.scss'
+import { useSelector } from 'react-redux'
 
 const Profile = () => {
+  const user = useSelector(state => state.auth.userData)
   // ** States
   const [data, setData] = useState(null)
   const [block, setBlock] = useState(false)
@@ -41,18 +43,17 @@ const Profile = () => {
   }, [])
   return (
     <Fragment>
-      <Breadcrumbs title='Profile' data={[{ title: 'Pages' }, { title: 'Profile' }]} />
       {data !== null ? (
         <div id='user-profile'>
           <Row>
             <Col sm='12'>
-              <ProfileHeader data={data.header} />
+              <ProfileHeader data={user} />
             </Col>
           </Row>
           <section id='profile-info'>
             <Row>
               <Col lg={{ size: 3, order: 1 }} sm={{ size: 12 }} xs={{ order: 2 }}>
-                <ProfileAbout data={data.userAbout} />
+                <ProfileAbout data={user} />
                 <ProfileSuggestedPages data={data.suggestedPages} />
                 <ProfileTwitterFeeds data={data.twitterFeeds} />
               </Col>
