@@ -26,7 +26,7 @@ import { X, Home } from 'react-feather'
 // ** Custom Components
 import Avatar from '@components/avatar'
 import InputPasswordToggle from '@components/input-password-toggle'
-import AuthFooter from '../../../@core/components/authentication'
+import {AuthFooter} from '../../../@core/components/authentication'
 
 // ** Reactstrap Imports
 import { Row, Col, CardTitle, CardText, Label, Button, Form, Input, FormFeedback, Alert } from 'reactstrap'

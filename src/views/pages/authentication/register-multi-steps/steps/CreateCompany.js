@@ -10,15 +10,7 @@ import useJwt from '@src/auth/jwt/useJwt'
 
 // ** Reactstrap Imports
 import { Form, Label, Input, Row, Col, Button, FormFeedback, Alert } from 'reactstrap'
-
-
-function ActivateCompany({email, token}) {
-  return (
-    <>
-    {`<script> window.onload = function() { fetch(\`http://localhost:5000/api/company/activate?token=${token}&email=${email}).then(response => response.json()).then(data => console.log(data)).catch(error => console.error(error))} </script>`}
-    </>
-  )
-}
+import {ActivateWebsiteSteps} from '@components/authentication'
 
 const defaultValues = {
   companyName   : '',
@@ -39,15 +31,15 @@ const PersonalInfo = ({ stepper }) => {
   const [err, setErr] = useState(null)
   const [loading, setLoading] = useState(false)
   const [activate, setActivate] = useState(null)
+  const [companyData, setCompanyData] = useState(defaultValues)
   const onSubmit = async(data) => {
     if (Object.values(data).every(field => field.length > 0)) {
-      console.log("data", data)
       let message
       setLoading(true)
       try {
         const response = await useJwt.postRequestWithToken("createNewCompany", data)
-        console.log("result", response.data)
         if (response.status === 200) {
+          setCompanyData(data)
           setActivate(response.data)
         } else {
           message = response.data.message
@@ -90,7 +82,7 @@ const PersonalInfo = ({ stepper }) => {
           please copy and past this script on your entry point project (probebly will named index.html) on the top header
           activate
           <br/>
-          <ActivateCompany  email={activate.email} token={activate.token} />
+          <ActivateWebsiteSteps {...activate} {...companyData}  />
         </Fragment> }
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Row>
