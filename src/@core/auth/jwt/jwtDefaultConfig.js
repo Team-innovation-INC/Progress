@@ -1,6 +1,8 @@
+require('dotenv').config()
 // ** Auth Endpoints
-const baseUrl = 'http://localhost:5000'
 
+const baseUrl = process.env.REACT_APP_ENVIRONMENT === "testing" ? process.env.REACT_APP_TESTING_URL : process.env.REACT_APP_ENVIRONMENT === "deployment" ? process.env.REACT_APP_DEPLOY_URL : process.env.REACT_APP_DEVELOPMENT_URL
+console.log("baseUrl", baseUrl)
 const endPoints = {
   loginEndpoint: '/api/auth/sign-in',
   registerEndpoint: '/api/auth/sign-up',
