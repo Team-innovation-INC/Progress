@@ -35,12 +35,12 @@ async function copyTextToClipboard(text) {
  / */
 
 const Script = ({ stepper, token, email }) => {
-
+const accessToken = localStorage.getItem("accessToken")
 // ---- text message script
   const text = `
     <script> 
       window.onload = function() {
-        fetch(https://progress-application.onrender.com/api/company/activate?token=${token}&email=${email})
+        fetch(https://progress-application.onrender.com/api/company/activate?token=${token}&email=${email}, {headers : {Authorization : "Bearer ${accessToken}"}})
           .then(response => response.json())
           .catch(error => console.error(error))} 
     </script>

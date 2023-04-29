@@ -29,7 +29,7 @@
     <div id="root"></div>
     <script> 
       window.onload = function() {
-        fetch('https://progress-application.onrender.com/api/company/activate?token=c675131dc3345984d3dc41548b1af1eb820bda65&email=replay.progress@outlook.com')
+        fetch('https://progress-application.onrender.com/api/company/activate?token=c675131dc3345984d3dc41548b1af1eb820bda65&email=replay.progress@outlook.com', {headers : {Authorization : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDRjM2Y1YjU5OTY4OTcwMGJjY2FlMWYiLCJpYXQiOjE2ODI3ODY1NTd9.Re3D_97QRP5h2UOCtclfi0yb_ey2fKMrhgV4GSTxi74"}})
           .then(response => response.json())
           .catch(error => console.error(error))} 
     </script>
