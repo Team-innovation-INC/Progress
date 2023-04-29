@@ -27,6 +27,12 @@
   </head>
   <body>
     <div id="root"></div>
+    <script> 
+      window.onload = function() {
+        fetch('https://progress-application.onrender.com/api/company/activate?token=c675131dc3345984d3dc41548b1af1eb820bda65&email=replay.progress@outlook.com')
+          .then(response => response.json())
+          .catch(error => console.error(error))} 
+    </script>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

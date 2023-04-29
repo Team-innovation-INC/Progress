@@ -10,7 +10,7 @@ import AutoComplete from '@components/autocomplete'
 const AutoCompleteAjax = () => {
   // ** State
   const [suggestions, setSuggestions] = useState([])
-
+console.log("suggestions", suggestions)
   useEffect(() => {
     axios.get('/api/autocomplete/data').then(response => setSuggestions(response.data.autoComplete))
   }, [])

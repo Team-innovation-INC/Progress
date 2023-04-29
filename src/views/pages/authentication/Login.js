@@ -41,7 +41,7 @@ import { Row, Col, Form, Input, Label, Alert, Button, CardText, CardTitle, Spinn
 
 // ** component import 
 import {LogoComponent, ThemeButton} from "../../components/logoAvatar"
-import AuthFooter from '../../../@core/components/authentication'
+import {AuthFooter} from '../../../@core/components/authentication'
 
 // ** Styles
 import '@styles/react/pages/page-authentication.scss'
