@@ -101,8 +101,21 @@ export default class JwtService {
   }
 
   refreshToken() {
-    return axios.post(this.jwtConfig.refreshEndpoint, {
+    return axios.get(this.jwtConfig.refreshEndpoint, {
       refreshToken: this.getRefreshToken()
     })
   }
+
+  getAuthorization() {
+    return {Authorization : `Bearer ${this.getToken()}`}
+  }
+
+  getRequestWithToken(_endpoint) {
+    return axios.get(this.jwtConfig[_endpoint], {headers: this.getAuthorization()})
+  }
+
+  postRequestWithToken(_endpoint, body) {
+    return axios.post(this.jwtConfig[_endpoint], {...body}, {headers: this.getAuthorization()})
+  }
+
 }

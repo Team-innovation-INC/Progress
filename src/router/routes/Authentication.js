@@ -71,10 +71,12 @@ const AuthenticationRoutes = [
     }
   },
   {
-    path: '/pages/register-multi-steps',
+    path: '/company/register',
     element: <RegisterMultiSteps />,
     meta: {
-      layout: 'blank'
+      layout: 'blank',
+      action: 'manage',
+      resource: 'User'
     }
   },
 
